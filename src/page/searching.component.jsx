@@ -38,8 +38,9 @@ class Searching extends React.Component {
             var test1 = false;
             var test2 = false;
             var test3 = false;
+            var test4 = false;
 
-            if((!this.state.Name && this.state.Name.length >= 0) || (item.Name.indexOf(this.state.Name) !== -1)) {
+            if((!this.state.Name && this.state.Name.length >= 0) || (item.Name.toLowerCase().indexOf(this.state.Name.toLowerCase()) !== -1)) {
                 test1 = true;
             }
             if((!this.state.PriceFrom && this.state.PriceFrom >= 0) || (item.Price >= this.state.PriceFrom)) {
@@ -48,7 +49,10 @@ class Searching extends React.Component {
             if((!this.state.PriceTo && this.state.PriceTo >= 0) || (item.Price <= this.state.PriceTo)) {
                 test3 = true;
             }
-            if(test1 && test2 && test3) {
+            if((!this.state.Location && this.state.Location.length >= 0) || (item.Location.toLowerCase().indexOf(this.state.Location.toLowerCase()) !== -1)) {
+                test4 = true;
+            }
+            if(test1 && test2 && test3 && test4) {
                 return item
             } else {
                 return false;
