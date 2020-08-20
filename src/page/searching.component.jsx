@@ -32,36 +32,34 @@ class Searching extends React.Component {
     };
 
     filtrowanie = () => {
+        const { data } = this.state;
 
-    const { data } = this.state;
+        return data.filter( item => {
+            var test1 = false;
+            var test2 = false;
+            var test3 = false;
 
-    const result = data.filter( item => {
-        var test1 = false;
-        var test2 = false;
-        var test3 = false;
-
-        if((!this.state.Name && this.state.Name.length >= 0) || (item.Name.indexOf(this.state.Name) !== -1)) {
-            test1 = true;
-        }
-        if((!this.state.PriceFrom && this.state.PriceFrom >= 0) || (item.Price >= this.state.PriceFrom)) {
-            test2 = true;
-        }
-        if((!this.state.PriceTo && this.state.PriceTo >= 0) || (item.Price <= this.state.PriceTo)) {
-            test3 = true;
-        }
-        if(test1 && test2 && test3) {
-            return item
-        }
-    });
-        this.setState({
-            data: result
+            if((!this.state.Name && this.state.Name.length >= 0) || (item.Name.indexOf(this.state.Name) !== -1)) {
+                test1 = true;
+            }
+            if((!this.state.PriceFrom && this.state.PriceFrom >= 0) || (item.Price >= this.state.PriceFrom)) {
+                test2 = true;
+            }
+            if((!this.state.PriceTo && this.state.PriceTo >= 0) || (item.Price <= this.state.PriceTo)) {
+                test3 = true;
+            }
+            if(test1 && test2 && test3) {
+                return item
+            } else {
+                return false;
+            }
         });
-        console.log(result);
     };
 
     render(){
-        const { data } = this.state; 
-        this.filtrowanie();
+        // const { data } = this.state;
+        const filteredContent = this.filtrowanie();
+
         return(
             <div>
                 <table style={Table}>
@@ -74,7 +72,7 @@ class Searching extends React.Component {
                     </thead>
                     <tbody>
                     {    
-                        data.map( item => 
+                        filteredContent.map( item => 
                             <tr 
                                 data-nazwa={item.Name}
                                 data-cena={item.Price}
